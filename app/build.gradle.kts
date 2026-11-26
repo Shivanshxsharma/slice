@@ -30,6 +30,14 @@ android {
 
     buildFeatures { compose = true }
 
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+        // README screenshots: ./gradlew :app:testDebugUnitTest --tests '*ReadmeScreenshots*' -Pscreenshots=<dir>
+        unitTests.all { test ->
+            project.findProperty("screenshots")?.let { test.systemProperty("slice.screenshots", it.toString()) }
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -49,4 +57,10 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 
     testImplementation("junit:junit:4.13.2")
+    // Renders the real Compose screens on the PC for the README (no phone or emulator needed).
+    testImplementation(bom)
+    testImplementation("org.robolectric:robolectric:4.18.1")
+    testImplementation("androidx.compose.ui:ui-test-junit4")
+    debugImplementation(bom)
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
 }

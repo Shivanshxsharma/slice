@@ -105,6 +105,7 @@ class CutPlannerTest {
     @Test
     fun formatting() {
         assertEquals("0:07", Format.clock(7_400_000))
+        assertEquals("0:39", Format.clock(38_996_000)) // a range ending at 38.996 s reads 0:39, matching "39.0 s"
         assertEquals("1:02:09", Format.clock(3_729_000_000))
         assertEquals("31.2 s", Format.length(31_240_000))
         assertEquals("1:02.4", Format.length(62_400_000))

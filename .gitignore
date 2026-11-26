@@ -8,3 +8,5 @@ local.properties
 
 testdata/*.mp4
 dist/
+docs/screens/raw/
+__pycache__/

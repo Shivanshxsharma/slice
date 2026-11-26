@@ -187,6 +187,21 @@ class SliceViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    /** Puts a ready-made video on screen without reading a file. Only for the README screenshots. */
+    internal fun showSample(sample: VideoInfo, posterImage: ImageBitmap, frames: List<ImageBitmap>) {
+        info = sample
+        poster = posterImage
+        filmstrip.clear()
+        filmstrip.addAll(frames)
+        stage = Stage.Setup
+    }
+
+    /** Shows a finished split without writing files. Only for the README screenshots. */
+    internal fun showSampleResult(result: SplitResult, thumbs: Map<Int, ImageBitmap>) {
+        partThumbs.putAll(thumbs)
+        stage = Stage.Done(result)
+    }
+
     fun cancelSplit() {
         if (stage is Stage.Splitting) job?.cancel()
     }

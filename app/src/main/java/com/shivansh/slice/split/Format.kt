@@ -14,9 +14,9 @@ object Format {
         return if (v >= 100) "${v.roundToLong()} ${units[i]}" else String.format(Locale.US, "%.1f %s", v, units[i])
     }
 
-    /** Clock time for a position: 0:07, 1:05, 1:02:09. */
+    /** Clock time for a position, to the nearest second: 0:07, 1:05, 1:02:09. */
     fun clock(us: Long): String {
-        val s = (us / 1_000_000L).coerceAtLeast(0)
+        val s = ((us + 500_000L) / 1_000_000L).coerceAtLeast(0)
         val h = s / 3600
         val m = (s % 3600) / 60
         val sec = s % 60
